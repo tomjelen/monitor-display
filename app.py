@@ -1,14 +1,8 @@
+def display_current_monitor_status(display):
+    display.show_success()
+
+
 """
-
-def displayCurrentMonitorStatus(monitor, leds):
-    try
-        report = monitor.query_status()
-        leds.show(report)
-    except
-        leds.show_general_failure()
-
-
-
 
 if __name__ == '__main__':
   leds.init()
