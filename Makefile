@@ -5,6 +5,6 @@ test:
 	python3 -m unittest discover --verbose --pattern '*_*tests.py'
 
 run:
-	python3 main.py
+	python3 app.py
 
 .PHONY: deps run test
