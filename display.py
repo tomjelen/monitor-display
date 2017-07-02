@@ -7,5 +7,5 @@ def show_success():
 def show_failure():
     print(':(')
 
-def show_general_failure():
-    print(':(((')
+def show_general_failure(message):
+    print(message)
