@@ -1,4 +1,7 @@
+import time
+import monitor
 from monitor import MonitorNotAvailableError
+import display
 
 
 def display_current_monitor_status(monitor, display):
@@ -14,13 +17,9 @@ def display_current_monitor_status(monitor, display):
         display.show_general_failure('The monitor seems to be dead :(')
 
 
-"""
-
 if __name__ == '__main__':
-  leds.init()
+    display.init()
 
-  While:
-    displayCurrentMonitorStatus(monitor, leds)
-    time.sleep(10)
-
-"""
+    while True:
+        display_current_monitor_status(monitor, display)
+        time.sleep(10)
