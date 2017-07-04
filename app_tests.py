@@ -12,9 +12,9 @@ import display
 class AppTests(unittest.TestCase):
 
     @requests_mock.mock()
-    def test_displays_happy_monitor(self, fake_requests):
-        fake_requests.get('http://example.org/status',
-                          json={'success': True},
+    def test_displays_monitor_happy(self, fake_requests):
+        fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
+                          json={'status': 1},
                           status_code=200)
 
         fake_display = mock.Mock(spec=display)
@@ -23,9 +23,20 @@ class AppTests(unittest.TestCase):
         fake_display.show_success.assert_called_with()
 
     @requests_mock.mock()
+    def test_displays_monitor_warning(self, fake_requests):
+        fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
+                          json={'status': 0},
+                          status_code=200)
+
+        fake_display = mock.Mock(spec=display)
+
+        app.display_current_monitor_status(monitor, fake_display)
+        fake_display.show_warning.assert_called_with()
+
+    @requests_mock.mock()
     def test_displays_monitor_errors(self, fake_requests):
-        fake_requests.get('http://example.org/status',
-                          json={'success': False},
+        fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
+                          json={'status': -1},
                           status_code=200)
 
         fake_display = mock.Mock(spec=display)
@@ -36,7 +47,7 @@ class AppTests(unittest.TestCase):
     @requests_mock.mock()
     @patch('time.sleep', return_value=None)  # Instant sleeps
     def test_displays_error_when_monitor_is_dead(self, fake_requests, fake_sleep):
-        fake_requests.get('http://example.org/status',
+        fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
                           json={'a': 'b'},
                           status_code=500)
 
@@ -48,7 +59,7 @@ class AppTests(unittest.TestCase):
     @requests_mock.mock()
     @patch('time.sleep', return_value=None)  # Instant sleeps
     def test_will_retry_on_monitor_failure(self, fake_requests, fake_sleep):
-        fake_requests.get('http://example.org/status',
+        fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
                           json={'a': 'b'},
                           status_code=500)
 
