@@ -14,7 +14,7 @@ class AppTests(unittest.TestCase):
     @requests_mock.mock()
     def test_displays_monitor_happy(self, fake_requests):
         fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
-                          json={'status': 1},
+                          json={'success': True},
                           status_code=200)
 
         fake_display = mock.Mock(spec=display)
@@ -23,20 +23,9 @@ class AppTests(unittest.TestCase):
         fake_display.show_success.assert_called_with()
 
     @requests_mock.mock()
-    def test_displays_monitor_warning(self, fake_requests):
-        fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
-                          json={'status': 0},
-                          status_code=200)
-
-        fake_display = mock.Mock(spec=display)
-
-        app.display_current_monitor_status(monitor, fake_display)
-        fake_display.show_warning.assert_called_with()
-
-    @requests_mock.mock()
     def test_displays_monitor_errors(self, fake_requests):
         fake_requests.get('https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status',
-                          json={'status': -1},
+                          json={'success': False},
                           status_code=200)
 
         fake_display = mock.Mock(spec=display)

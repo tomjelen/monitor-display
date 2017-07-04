@@ -5,10 +5,8 @@ import requests
 MONITOR_URL = 'https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status'
 MonitorReport = namedtuple("MonitorReport", ["success"])
 
-
 class MonitorNotAvailableError(Exception):
     pass
-
 
 def query_status(retry_attempts=0):
     resp = requests.get(MONITOR_URL)
@@ -25,4 +23,4 @@ def query_status(retry_attempts=0):
 
 
 def report(monitor_result):
-    return MonitorReport(monitor_result)
+    return MonitorReport(monitor_result['success'])
