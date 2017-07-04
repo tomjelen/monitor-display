@@ -2,7 +2,7 @@ from collections import namedtuple
 import time
 import requests
 
-MONITOR_URL = 'http://example.org/status'
+MONITOR_URL = 'https://242v7ngehg.execute-api.eu-west-1.amazonaws.com/Prod/status'
 MonitorReport = namedtuple("MonitorReport", ["success"])
 
 
@@ -25,4 +25,4 @@ def query_status(retry_attempts=0):
 
 
 def report(monitor_result):
-    return MonitorReport(monitor_result['success'])
+    return MonitorReport(monitor_result)
