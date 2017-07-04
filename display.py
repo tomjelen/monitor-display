@@ -1,8 +1,12 @@
 def init():
     print('initializing..')
 
+
 def show_success():
     print(':)')
+
+def show_warning():
+    print(':|')
 
 def show_failure():
     print(':(')
