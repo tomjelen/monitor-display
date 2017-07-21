@@ -13,4 +13,7 @@ test: test_deps
 run:
 	python3 app.py
 
-.PHONY: deps test_deps test test_watch run
+install: deps
+	./install.sh
+
+.PHONY: deps test_deps test test_watch run install
