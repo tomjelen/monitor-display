@@ -6,7 +6,6 @@ from unittest.mock import ANY
 import requests_mock
 import app
 import monitor
-import display
 
 
 class AppTests(unittest.TestCase):
@@ -17,7 +16,7 @@ class AppTests(unittest.TestCase):
                           json={'success': True},
                           status_code=200)
 
-        fake_display = mock.Mock(spec=display)
+        fake_display = mock.Mock()
 
         app.display_current_monitor_status(monitor, fake_display)
         fake_display.show_success.assert_called_with()
@@ -28,7 +27,7 @@ class AppTests(unittest.TestCase):
                           json={'success': False},
                           status_code=200)
 
-        fake_display = mock.Mock(spec=display)
+        fake_display = mock.Mock()
 
         app.display_current_monitor_status(monitor, fake_display)
         fake_display.show_failure.assert_called_with()
@@ -40,7 +39,7 @@ class AppTests(unittest.TestCase):
                           json={'a': 'b'},
                           status_code=500)
 
-        fake_display = mock.Mock(spec=display)
+        fake_display = mock.Mock()
 
         app.display_current_monitor_status(monitor, fake_display)
         fake_display.show_general_failure.assert_called_with(ANY)
@@ -52,7 +51,7 @@ class AppTests(unittest.TestCase):
                           json={'a': 'b'},
                           status_code=500)
 
-        fake_display = mock.Mock(spec=display)
+        fake_display = mock.Mock()
 
         app.display_current_monitor_status(monitor, fake_display)
         self.assertGreater(fake_requests.call_count, 1)

@@ -1,7 +1,5 @@
 import time
-import monitor
 from monitor import MonitorNotAvailableError
-import display
 
 def display_current_monitor_status(monitor, display):
     try:
@@ -17,8 +15,14 @@ def display_current_monitor_status(monitor, display):
 
 
 if __name__ == '__main__':
+    import monitor
+    import display
+
     display.init()
-    
-    while True:
-        display_current_monitor_status(monitor, display)
-        time.sleep(10) 
+
+    try:
+        while True:
+            display_current_monitor_status(monitor, display)
+            time.sleep(10)
+    finally:
+        display.off()
