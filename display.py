@@ -20,8 +20,7 @@ def off():
 
 def show_success():
     print(':)')
-    unicornhathd.set_all(0, 255, 0)
-    unicornhathd.show()
+    draw_image(Image.open('smile.png'))
 
 def show_failure():
     print(':(')
@@ -58,3 +57,13 @@ def scroll_text(line, color):
 
         unicornhathd.show()
         time.sleep(0.01)
+
+def draw_image(image):
+    width, height = unicornhathd.get_shape()
+    for x in range(width):
+        for y in range(height):
+            pixel = image.getpixel((y,x))
+            r, g, b = int(pixel[0]),int(pixel[1]),int(pixel[2])
+            unicornhathd.set_pixel(x, y, r, g, b)
+
+    unicornhathd.show()
