@@ -10,6 +10,7 @@ After=multi-user.target
 Type=simple
 Restart=always
 RestartSec=10
+WorkingDirectory=$DIR
 ExecStart=/usr/bin/python3 $DIR/app.py
 
 [Install]
