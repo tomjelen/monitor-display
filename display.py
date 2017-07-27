@@ -62,7 +62,7 @@ def draw_image(image):
     width, height = unicornhathd.get_shape()
     for x in range(width):
         for y in range(height):
-            pixel = image.getpixel((y,x))
+            pixel = image.getpixel((x, y))
             r, g, b = int(pixel[0]),int(pixel[1]),int(pixel[2])
             unicornhathd.set_pixel(x, y, r, g, b)
 
